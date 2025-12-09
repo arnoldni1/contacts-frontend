@@ -1,0 +1,1 @@
+export const BASE_URL = "https://contacts-backend-zom6.onrender.com";
