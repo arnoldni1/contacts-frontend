@@ -17,19 +17,11 @@ export default function AddContact() {
             return;
         }
 
-        // READ TOKEN FROM localStorage
-        const token = localStorage.getItem("token");
-        if (!token) {
-            setResponseMsg("You must login first to add a contact.");
-            return;
-        }
-
         try {
             const res = await fetch(`${BASE_URL}/contacts`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     contact_name: contactName,
@@ -48,11 +40,6 @@ export default function AddContact() {
                 setPhoneNumber("");
                 setMessage("");
                 setImageUrl("");
-            } else if (res.status === 401 || res.status === 403) {
-                setResponseMsg(
-                    data?.detail ||
-                    "Not authorized. Please login again to get a new token."
-                );
             } else {
                 setResponseMsg(data?.message || "Failed to add contact.");
             }
